@@ -1,0 +1,13 @@
+{
+  "name": "ProjectPlatformGame.",
+  "version": "0.0.1",
+  "author": "Valeriy Abornyev",
+  "description": "Project: A Platform Game",
+  "devDependencies": {
+    "browserify": "latest"
+  },
+  "scripts": {
+    "build-js": "browserify js/main.js > js/app.js",
+    "watch-js": "watchify js/main.js -o js/app.js -vd"
+  }
+}
