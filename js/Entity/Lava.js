@@ -13,6 +13,7 @@ function Lava(pos, ch) {
     this.repeatPos = pos;
   }
 }
+
 Lava.prototype.type = 'lava';
 
 Lava.prototype.act = function(step, level) {

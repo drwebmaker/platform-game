@@ -9,6 +9,7 @@ function trackKeys(codes) {
   }
   addEventListener('keydown', handler);
   addEventListener('keyup', handler);
+
   return pressed;
 }
 

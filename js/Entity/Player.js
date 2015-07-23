@@ -51,7 +51,6 @@ Player.prototype.act = function(step, level, keys) {
   if (otherActor)
     level.playerTouched(otherActor.type, otherActor);
 
-  // Losing animation
   if (level.status == 'lost') {
     this.pos.y += step;
     this.size.y -= step;

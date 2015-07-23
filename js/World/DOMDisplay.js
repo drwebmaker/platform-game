@@ -50,7 +50,6 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
   var height = this.wrap.clientHeight;
   var margin = width / 3;
 
-  // The viewport
   var left = this.wrap.scrollLeft, right = left + width;
   var top = this.wrap.scrollTop, bottom = top + height;
 

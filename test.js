@@ -26,17 +26,11 @@ var main = require('./js/main.js'),
 
   // others
   expect =  require('expect.js'),
-  chai =  require('chai'),
   sinon = require('sinon');
 
+var pos = new Vector(3, 4);
 
 describe('Project: A Platform Game', function() {
-  describe('#Coin', function() {
-    it('method "type" should return string "coin"', function() {
-      expect(Coin.prototype.type).to.equal('coin');
-    });
-
-  });
 
   describe('#Vector', function() {
     var pos = new Vector(3, 4);
@@ -84,7 +78,7 @@ describe('Project: A Platform Game', function() {
 
   });
 
-  describe('arrowCodes', function () {
+  describe('#arrowCodes', function () {
     it('Should be an Object', function () {
       expect(arrowCodes).to.be.a('object');
     });
@@ -102,30 +96,39 @@ describe('Project: A Platform Game', function() {
     });
   });
 
-  describe('Level', function () {
+  describe('#Level', function () {
+    var test = new Level(level);
     it('Should has method "obstacleAt"', function () {
-      var test = new Level(level);
-      chai.expect(test).to.respondTo('obstacleAt');
+      expect(test).to.have.property('obstacleAt');
     });
 
     it('Should has method "actorAt"', function () {
-      var test = new Level(level);
-      chai.expect(test).to.respondTo('actorAt');
+      expect(test).to.have.property('actorAt');
     });
 
     it('Should has method "animate"', function () {
-      var test = new Level(level);
-      chai.expect(test).to.respondTo('animate');
+      expect(test).to.have.property('animate');
     });
 
     it('Should has method "playerTouched"', function () {
-      var test = new Level(level);
-      chai.expect(test).to.respondTo('playerTouched');
+      expect(test).to.have.property('playerTouched');
+    });
+
+    it('Check method "isFinished"', function() {
+      var stub = sinon.stub(test, "isFinished");
+      stub.returns();
+    });
+
+    it('Check method "obstacleAt"', function() {
+      var stub = sinon.stub(test, "obstacleAt");
+      stub.returns();
     });
 
     it('Should throw an Error if input parameters is not array', function () {
       var test = '  x';
       expect(function(){Level(test)}).to.throwError();
+      expect(function(){Level(null)}).to.throwError();
+      expect(function(){Level(undefined)}).to.throwError();
     });
 
     it('Each level should contain corresponding symbols for Coins', function () {
@@ -153,5 +156,99 @@ describe('Project: A Platform Game', function() {
 
       expect(correct.indexOf(false)).to.equal(-1);
     });
+
+    it('In method "obstacleAt" should be "Vector" as arguments', function () {
+      var test = new Level(['  =  ']);
+      var pos = new Vector(3, 4);
+      expect(test.obstacleAt(pos, pos)).to.be.ok;
+      expect(function(){test.obstacleAt(pos, null)}).to.throwError();
+      expect(function(){test.obstacleAt(undefined, pos)}).to.throwError();
+    });
+  });
+
+  describe('#DOMDisplay', function() {
+    it('Check create new object DOMDisplay', function() {
+      expect(new DOMDisplay(document.body, new Level(level[0]))).to.be.ok;
+    });
+
+    it('Should throw an Error if input parameters is not correct', function() {
+      expect(function() {new DOMDisplay(document.body, new Level(1))}).to.throwError();
+      expect(function() {new DOMDisplay(document.body, new Level('string'))}).to.throwError();
+      expect(function() {new DOMDisplay(document.body, new Level(null))}).to.throwError();
+      expect(function() {new DOMDisplay(document.body, new Level(undefined))}).to.throwError();
+    });
+  });
+
+  describe('#Lava', function () {
+    var lavaElem = ['=', '!', 'v'];
+    var pos = new Vector(3, 4);
+    var testLava = new Lava(pos, lavaElem[1]);
+    var testLevelPlan = level[0];
+    var testLevel = new Level(testLevelPlan);
+    var testStep = 0.2;
+
+    it('Should change "position" after using "act" method', function () {
+      var testActedLava = new Lava(pos, lavaElem[0]);
+      testActedLava.act(testStep, testLevel);
+
+      expect(testLava.pos).to.not.eql(testActedLava.pos);
+    });
+
+    it('Check to create new object "Lava"', function(){
+      expect(new Lava(pos, 'v')).to.be.ok;
+    });
+  });
+
+  describe('#Coin', function() {
+    it('method "type" should return string "coin"', function() {
+      expect(Coin.prototype.type).to.equal('coin');
+    });
+
+    it('"Coin" should has property "type"', function(){
+      expect(new Coin(new Vector(3, 4))).to.have.property('type', 'coin');
+    });
+
+    it('Check to create new object "Coin"', function(){
+      expect(new Coin(pos, 'o')).to.be.ok;
+    });
+
+  });
+
+  describe('#runLevel', function () {
+
+  });
+
+  describe('#runGame', function () {
+
+  });
+
+  describe('#runAnimation', function () {
+
+  });
+
+  describe('#Player', function () {
+    var testPlayer = new Player(pos, '@');
+    it('Check to create new object "Player"', function(){
+      expect(testPlayer).to.be.ok;
+    });
+
+    it('Check to method "moveX"', function(){
+      var testLevelPlan = level[0];
+      var testLevel = new Level(testLevelPlan);
+      expect(testPlayer.moveX(2, testLevel, 37)).to.be.ok;
+    });
+
+    it('Check to method "act"', function(){
+      var testLevelPlan = level[0];
+      var testLevel = new Level(testLevelPlan);
+      expect(testPlayer.act(2, testLevel, 37)).to.be.ok;
+    });
+  });
+
+  describe('#trackKeys', function () {
+    it('Should return object', function(){
+      expect(trackKeys(37)).to.be.a('object');
+    });
+
   });
 });
