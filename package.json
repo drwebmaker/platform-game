@@ -3,11 +3,26 @@
   "version": "0.0.1",
   "author": "Valeriy Abornyev",
   "description": "Project: A Platform Game",
+  "main": "js/main.js",
   "devDependencies": {
-    "browserify": "latest"
+    "browserify": "latest",
+    "expect.js": "^0.3.1",
+    "chai": "*",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4"
   },
+  "keywords": [
+    "test",
+    "bdd",
+    "utils",
+    "tdd",
+    "learn",
+    "study"
+  ],
   "scripts": {
     "build-js": "browserify js/main.js > js/app.js",
-    "watch-js": "watchify js/main.js -o js/app.js -vd"
+    "watch-js": "watchify js/main.js -o js/app.js -vd",
+    "test": "mocha test.js",
+    "test-in-browser": "beefy test.js"
   }
 }
