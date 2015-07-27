@@ -1,5 +1,5 @@
 var Vector = require('../World/Vector');
-var Level = require('../World/Level');
+//var Level = require('../World/Level');
 
 function Lava(pos, ch) {
   this.pos = pos;

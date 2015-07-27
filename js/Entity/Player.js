@@ -1,5 +1,5 @@
 var Vector = require('../World/Vector');
-var Level = require('../World/Level');
+//var Level = require('../World/Level');
 
 function Player(pos) {
   this.pos = pos.plus(new Vector(0, -0.5));

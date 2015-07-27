@@ -20,11 +20,6 @@ function runGame(plans, Display) {
           if (lives <= 0 ) {
             var div = document.body.querySelector('.game-over');
             div.style.display = 'block';
-            //var youLost = document.body.appendChild(elt('div', 'game-over')).appendChild(elt('div', 'tableBlock'));
-            //var text = document.createTextNode('GAME OVER\nGAME OVER');
-            //var text2 = document.createTextNode('GAME OVER');
-            //youLost.appendChild(text);
-            //youLost.appendChild(text2);
 
             addEventListener('keydown', function (event) {
               if (event.keyCode == 32) {
