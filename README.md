@@ -21,4 +21,7 @@ For game you could use:
 * Button Esc - for pause game
 * Batton Space - for restart game when you dead or you are win
 
+## Run tests
 
+* Run 'npm i'
+* Run 'npm test'
