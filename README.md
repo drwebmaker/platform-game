@@ -23,5 +23,5 @@ For game you could use:
 
 ## Run tests
 
-* Run 'npm i'
-* Run 'npm test'
+* Run `npm i`
+* Run `npm test`
