@@ -166,19 +166,6 @@ describe('Project: A Platform Game', function() {
     });
   });
 
-  describe('#DOMDisplay', function() {
-    it('Check create new object DOMDisplay', function() {
-      expect(new DOMDisplay(document.body, new Level(level[0]))).to.be.ok;
-    });
-
-    it('Should throw an Error if input parameters is not correct', function() {
-      expect(function() {new DOMDisplay(document.body, new Level(1))}).to.throwError();
-      expect(function() {new DOMDisplay(document.body, new Level('string'))}).to.throwError();
-      expect(function() {new DOMDisplay(document.body, new Level(null))}).to.throwError();
-      expect(function() {new DOMDisplay(document.body, new Level(undefined))}).to.throwError();
-    });
-  });
-
   describe('#Lava', function () {
     var lavaElem = ['=', '!', 'v'];
     var pos = new Vector(3, 4);
@@ -233,10 +220,5 @@ describe('Project: A Platform Game', function() {
     });
   });
 
-  describe('#trackKeys', function () {
-    it('Should return object', function(){
-      expect(trackKeys(37)).to.be.a('object');
-    });
 
-  });
 });
