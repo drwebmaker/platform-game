@@ -3,7 +3,8 @@ var runLevel = require('./runLevel');
 var elt = require('../Helpers/elt');
 
 function runGame(plans, Display) {
-  var lives  = 3;
+  var count = 3;
+  var lives  = count;
   var livesSpan = document.querySelector('#lives');
   var levelSpan = document.querySelector('#level');
 
@@ -11,27 +12,50 @@ function runGame(plans, Display) {
     livesSpan.textContent = lives;
     levelSpan.textContent = n+1;
 
-    if (lives > 0) {
+    if (lives >= 1) {
       runLevel(new Level(plans[n]), Display, function (status) {
-        if (status == 'lost')
+
+        if (status == 'lost') {
+          lives--;
+          if (lives <= 0 ) {
+            var div = document.body.querySelector('.game-over');
+            div.style.display = 'block';
+            //var youLost = document.body.appendChild(elt('div', 'game-over')).appendChild(elt('div', 'tableBlock'));
+            //var text = document.createTextNode('GAME OVER\nGAME OVER');
+            //var text2 = document.createTextNode('GAME OVER');
+            //youLost.appendChild(text);
+            //youLost.appendChild(text2);
+
+            addEventListener('keydown', function (event) {
+              if (event.keyCode == 32) {
+                var gameOver = document.querySelector('.game-over');
+                document.body.removeChild(gameOver);
+                lives  = count;
+                startLevel(0);
+              }
+            });
+          }
+
           startLevel(n);
-        else if (n < plans.length - 1) {
+
+        } else if (n < plans.length - 1) {
           startLevel(n + 1);
         }
         else {
-          var youWin = document.body.appendChild(elt('div', 'game-over')).appendChild(elt('div', 'tableBlock'));
-          var text = document.createTextNode('YOU WIN');
-          youWin.appendChild(text);
+          var youWin = document.body.querySelector('.game-win');
+          youWin.style.display = 'block';
+
+          addEventListener('keydown', function (event) {
+            if (event.keyCode == 32) {
+              var gameWin = document.querySelector('.game-win');
+              document.body.removeChild(gameWin );
+              lives  = count;
+              startLevel(0);
+            }
+          });
         }
       });
-      lives--;
-    } else {
-      var youLost = document.body.appendChild(elt('div', 'game-over')).appendChild(elt('div', 'tableBlock'));
-      var text = document.createTextNode('GAME OVER');
-      youLost.appendChild(text);
-      addEventListener('keydown',function(event){
-        console.log(event.which);
-      });
+
     }
   }
   startLevel(0);
@@ -39,6 +63,6 @@ function runGame(plans, Display) {
 
 module.exports = runGame;
 
-addEventListener('keydown',function(event){
-  console.log(event.which);
-});
+//addEventListener('keydown',function(event){
+//  console.log(event.which);
+//});
